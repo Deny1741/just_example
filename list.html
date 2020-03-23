@@ -95,6 +95,7 @@
         align-items: center;
         font-weight: bold;
         font-size: 32px;
+        text-align: center;
     }
 
     #soroban-trainer {
@@ -208,6 +209,10 @@
 
     .blue {
         background-color: var(--btn-color-blue);
+    }
+
+    .icon {
+        color: var(--btn-color-green);
     }
 
 
@@ -355,7 +360,7 @@
             </li>
 
             <li class="settings-item mobile-count">
-                <label for="select_page">Правильно: </label>
+                <label for="select_page" class="icon">&#10004; </label>
                 <div id="completed"></div>
             </li>
 
@@ -369,7 +374,7 @@
             </li>
         </ul>
     </div>
-    <div id="numbers">Выберите сложность и нажмите "Новый пример"</div>
+    <div id="numbers">Выберите&nbsp;сложность и&nbsp;нажмите "Новый&nbsp;пример"</div>
 
     <!-- Соробан -->
 
@@ -577,7 +582,7 @@
             document.getElementById('numbers').style.color = 'var(--btn-form-color)';
         }
 
-        document.getElementById('completed').innerText = `${right_counter} из ${arr_nums.length}`;
+        document.getElementById('completed').innerText = `${right_counter}`;
 
     };
 
