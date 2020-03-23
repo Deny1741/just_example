@@ -18,13 +18,9 @@
 
 <style>
     :root {
-        --nav-link-color: #008CBA;
-        --nav-link-color-hover: #ff3366;
-        --nav-link-text-color: #fff;
-        --btn-color-green: #4CAF50;
-        --btn-color-blue: #008CBA;
-        --form-background: #323a45;
-        --btn-form-color: #ff3366;
+        --green: #4CAF50;
+        --blue: #008CBA;
+        --red: #ff3366;
     }
 
     * {
@@ -47,19 +43,13 @@
     }
 
     @media screen and (max-width: 680px) {
-        .nav {
-            margin-bottom: 20px !important;
-        }
-        .nav-item, .settings-item, .button, .form-item {
+        .settings-item, .button {
             width: 100% !important;
         }
     }
 
     @media screen and (max-width: 500px) {
-        .nav {
-            margin-bottom: 20px !important;
-        }
-        .nav-item, .settings-item, .button, .form-item {
+        .settings-item, .button {
             width: 100% !important;
         }
         .mobile-count {
@@ -83,14 +73,10 @@
 
     }
 
-
-
     #numbers {
         min-height: 200px;
         min-width: 300px;
         display: flex;
-    // flex-direction: column;
-    // justify-content: center;
         justify-content: space-between;
         align-items: center;
         font-weight: bold;
@@ -107,7 +93,6 @@
     .wrap {
         display: flex;
         flex-direction: column;
-     //   border: #ff3366 solid 2px;
         align-items: center;
         justify-content: center;
     }
@@ -116,7 +101,6 @@
 
     .settings {
         width: 100%;
-     //   border: 1px solid #4CAF50;
     }
 
     .settings ul  {
@@ -204,21 +188,18 @@
     }
 
     .green {
-        background-color: var(--btn-color-green);
+        background-color: var(--green);
     }
 
     .blue {
-        background-color: var(--btn-color-blue);
+        background-color: var(--blue);
     }
 
     .icon {
-        color: var(--btn-color-green);
+        color: var(--green);
     }
 
-
     /* Переключатель */
-
-    /* The switch - the box around the slider */
 
     .switch-wrap {
         position: relative;
@@ -325,13 +306,11 @@
         background-repeat: no-repeat; /* Отменяем повторение фона */
         bottom: 0;
         margin: 0;
-    //    border: 1px solid green;
         width: 70px;
         height: 40px;
     }
 
     .sky {
-    //  background-image: url("img/bead_active.png");
         top: 20px;
     }
 
@@ -377,89 +356,18 @@
     <div id="numbers">Выберите&nbsp;сложность и&nbsp;нажмите "Новый&nbsp;пример"</div>
 
     <!-- Соробан -->
-
     <div id="soroban-trainer">
-        <div id="soroban-5" class="wrap-sky">
-
-            <div class="column">
-                <div id="05" class="box sky"></div>
-            </div>
-
-            <div class="column">
-                <div id="15" class="box sky"></div>
-            </div>
-
-            <div class="column">
-                <div id="25" class="box sky"></div>
-            </div>
-
-            <div class="column flexible">
-                <div id="35" class="box sky"></div>
-            </div>
-
-            <div class="column flexible">
-                <div id="45" class="box sky"></div>
-            </div>
-
-            <div class="column flexible">
-                <div id="55" class="box sky"></div>
-            </div>
-        </div>
-
-        <div id="soroban" class="wrap-earth">
-            <div class="column">
-                <div id="03" class="box"></div>
-                <div id="02" class="box"></div>
-                <div id="01" class="box"></div>
-                <div id="00" class="box"></div>
-            </div>
-
-            <div class="column">
-                <div id="13" class="box"></div>
-                <div id="12" class="box"></div>
-                <div id="11" class="box"></div>
-                <div id="10" class="box"></div>
-            </div>
-
-            <div class="column">
-                <div id="23" class="box"></div>
-                <div id="22" class="box"></div>
-                <div id="21" class="box"></div>
-                <div id="20" class="box"></div>
-            </div>
-
-            <div class="column flexible">
-                <div id="33" class="box"></div>
-                <div id="32" class="box"></div>
-                <div id="31" class="box"></div>
-                <div id="30" class="box"></div>
-            </div>
-
-            <div class="column flexible">
-                <div id="43" class="box"></div>
-                <div id="42" class="box"></div>
-                <div id="41" class="box"></div>
-                <div id="40" class="box"></div>
-            </div>
-
-            <div class="column flexible">
-                <div id="53" class="box"></div>
-                <div id="52" class="box"></div>
-                <div id="51" class="box"></div>
-                <div id="50" class="box"></div>
-            </div>
-        </div>
+        <div id="soroban-5" class="wrap-sky"></div>
+        <div id="soroban" class="wrap-earth"></div>
     </div>
 
     <input id="input-answer" type="number" class="answer" placeholder="введите ответ">
+
     <div class="button-group">
         <button class="button green" id="answer">Ответить</button>
         <button class="button blue" id="start">Новый пример</button>
     </div>
-
-
 </div>
-
 </body>
 
 <script>
@@ -468,7 +376,6 @@
     let current_counter = 0;
     let toggle_soroban = false;
     let page_amount = 0;
-
 
     let level_1 = [
         [
@@ -498,138 +405,176 @@
         ],
     ];
 
+    let notebook_nums = [level_1, level_2];
 
-    notebook_nums = [level_1, level_2];
-
-
-    page_amount = notebook_nums[$('#select_level').val()].length;
-
-    // Генерирование настроек
-    for (let i = 1; i <= page_amount; i++) {
-        document.getElementById('select_page').innerHTML += `<option value="${i}">${i}</option>`
-    }
-
-    let arr_nums = notebook_nums[document.getElementById('select_level').value][document.getElementById('select_page').value - 1];
-
-
-    // for (let i = 0; i < arr_nums[index].length - 1; i++) {document.getElementById('numbers').innerHTML += `<div class="number"> ${arr_nums[index][i]} </div>`}
-
-   // console.log(notebook_nums[0][1]);
-
-
-    // Генерирование примеров
-
-    document.getElementById('select_page').onchange = () => {
-        index = 0;
-        right_counter = 0;
-        current_counter = 0;
-        arr_nums = notebook_nums[document.getElementById('select_level').value][document.getElementById('select_page').value - 1];
-      //  console.log(arr_nums);
-
-        document.getElementById('completed').innerText = `${right_counter} из ${arr_nums.length}`;
-    };
-
-    document.getElementById('select_level').onchange = () => {
-        index = 0;
-        right_counter = 0;
-        current_counter = 0;
-        arr_nums = notebook_nums[document.getElementById('select_level').value][document.getElementById('select_page').value - 1];
-
+    window.onload = () => {
         page_amount = notebook_nums[$('#select_level').val()].length;
 
-        // Генерирование настроек
-        document.getElementById('select_page').innerHTML = '';
-        for (let i = 1; i <= page_amount; i++) {
-            document.getElementById('select_page').innerHTML += `<option value="${i}">${i}</option>`
-        }
-     //   console.log(arr_nums);
+        create_sky();
+        create_earth();
 
-        document.getElementById('completed').innerText = `${right_counter} из ${arr_nums.length}`;
+        make_settings();
+        reset_settings();
+        draw_earth_beans();
     };
 
+    // Создать небесные бусинки
+    const create_sky = () => {
+        for (let i = 0; i < 6; i++) {
+            $('#soroban-5').append(`
+                <div class="column">
+                    <div id="${i}5" class="box sky"></div>
+                </div>
+            `);
+            if (i >= 3) $(`#${i}5`).parent().addClass('flexible');
+        }
+    };
 
+    // Создать земный бусинки
+    const create_earth = () => {
+        for (let i = 0; i < 6; i++) {
+            $('#soroban').append(`<div id="column-${i}" class="column"></div>`);
+            for (let j = 3; j >= 0; j--) {
+                $(`#column-${i}`).append(`<div id="${i}${j}" class="box"></div>`);
+            }
+            if (i >= 3) $(`#column-${i}`).addClass('flexible');
+
+        }
+    };
+
+    // Обнуление настроек
+    const reset_settings = () => {
+        index = 0;
+        right_counter = 0;
+        current_counter = 0;
+        arr_nums = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
+        $('#completed').text(`${right_counter}`);
+        page_amount = notebook_nums[$('#select_level').val()].length;
+    };
+
+    // Генерирование настроек
+    const make_settings = () => {
+        $('#select_page').html('');
+        for (let i = 1; i <= page_amount; i++) {
+            $('#select_page').append(`<option value="${i}">${i}</option>`);
+        }
+    };
+
+    // Генерирование примеров
+    $('#select_page').change(() => {
+        reset_settings();
+        make_settings();
+    });
+
+    $('#select_level').change(() => {
+        reset_settings();
+        make_settings();
+    });
 
     start = () => {
-        soroban_clear();
-        document.getElementById('answer').disabled = false;
-        document.getElementById('input-answer').disabled = false;
+        reset_soroban();
+        $('#input-answer').focus();
+        $('#answer').prop('disabled', false);
+        $('#input-answer').prop('disabled', false);
 
-        document.getElementById('numbers').style.color = 'black';
-        document.getElementById('input-answer').value = '';
-        if (index >= arr_nums.length) document.getElementById('numbers').innerText = `Правильно: ${right_counter} из ${arr_nums.length}`;
-        else document.getElementById('numbers').innerHTML = '';
+        $('#numbers').css('color', 'black');
+        $('#input-answer').val('');
+
+        if (index >= arr_nums.length) $('#numbers').text(`Правильно: ${right_counter} из ${arr_nums.length}`);
+        else $('#numbers').html('');
         for (let i = 0; i < arr_nums[index].length - 1; i++) {
-            document.getElementById('numbers').innerHTML += `<div class="number"> ${arr_nums[index][i]} </div>`
+            $('#numbers').append(`<div class="number"> ${arr_nums[index][i]} </div>`);
         }
+
         index++;
         current_counter++;
-        document.getElementById('current').innerText = `${current_counter} из ${arr_nums.length}`;
-
-        //   if (index === arr_nums.length - 1) document.getElementById('start').disabled = true;
-
+        $('#current').text(`${current_counter} из ${arr_nums.length}`);
     };
 
     answer = () => {
-        if (document.getElementById('input-answer').value === arr_nums[index - 1][arr_nums[index - 1].length - 1].toString() || sum === arr_nums[index - 1][arr_nums[index - 1].length - 1]) {
-            document.getElementById('input-answer').value = '';
-            document.getElementById('numbers').style.color = 'var(--btn-color-green)';
+        if ($('#input-answer').val() === arr_nums[index - 1][arr_nums[index - 1].length - 1].toString() || sum === arr_nums[index - 1][arr_nums[index - 1].length - 1]) {
+            $('#input-answer').val('');
+            $('#numbers').css('color', 'var(--green)');
             right_counter++;
 
-            document.getElementById('answer').disabled = true;
-            document.getElementById('input-answer').disabled = true;
+            $('#answer').prop('disabled', true);
+            $('#input-answer').prop('disabled', true);
         }
         else {
-            document.getElementById('numbers').style.color = 'var(--btn-form-color)';
+            $('#numbers').css('color', 'var(--red)');
         }
 
-        document.getElementById('completed').innerText = `${right_counter}`;
-
+        $('#completed').text(`${right_counter}`);
     };
 
-    document.getElementById('switcher').onclick = () => {
+    $('#switcher').click(() => {
         toggle_soroban = toggle_soroban !== true;
         if (toggle_soroban === true) {
-            document.getElementById('soroban-trainer').style.display = 'block';
-            document.getElementById('input-answer').style.display = 'none'
+            $('#soroban-trainer').css('display', 'block');
+            $('#input-answer').css('display', 'none');
         }
         else {
-            document.getElementById('soroban-trainer').style.display = 'none';
-            document.getElementById('input-answer').style.display = 'block';
+            $('#soroban-trainer').css('display', 'none');
+            $('#input-answer').css('display', 'block');
         }
-    };
+    });
 
-    document.getElementById('start').onclick = () => start();
-    document.getElementById('answer').onclick = () => answer();
-    document.getElementById('input-answer').onkeypress = () => { if (event.keyCode === 13) answer(); };
+    $('#start').click(() => start());
+    $('#answer').click(() => answer());
+    $('#input-answer').keypress(() => { if (event.keyCode === 13) answer()});
 
-
-    // Соробан
+    /* СОРОБАН */
 
     let toggle_bead = [[false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false]];
     let toggle_bead_5 = [[false], [false], [false], [false], [false], [false]];
     let sum = 0;
-
     let bottom = 20;
 
-    for (let i = 3; i >= 0; i--) {
-        $(`#0${i}`).css('bottom', bottom);
-        $(`#1${i}`).css('bottom', bottom);
-        $(`#2${i}`).css('bottom', bottom);
-        $(`#3${i}`).css('bottom', bottom);
-        $(`#4${i}`).css('bottom', bottom);
-        $(`#5${i}`).css('bottom', bottom);
-        bottom += 40;
-    }
+    // Движение бусинок
+    const move_bead = (x, y) => {
+        let temp_bottom = 0;
+        if (toggle_bead[x][y] === true) {
+            temp_bottom = parseInt($(`#${x}${y}`).css('bottom')) + 35;
+            sum += 10 ** parseInt(`${x}`);
+        }
+        if (toggle_bead[x][y] === false) {
+            temp_bottom = parseInt($(`#${x}${y}`).css('bottom')) - 35;
+            sum -= 10 ** parseInt(`${x}`);
+        }
+        $(`#${x}${y}`).css('bottom', temp_bottom);
+    };
 
+    // Рисует земные бусинки
+    const draw_earth_beans = () => {
+        for (let i = 3; i >= 0; i--) {
+            for (let j = 0; j < 6; j++) {
+                $(`#${j}${i}`).css('bottom', bottom).css('background-image', 'url("img/bead_inactive.png")');
+            }
+            bottom += 40;
+        }
+    };
+
+    // Ставит бусинки в начало
+    const reset_soroban = () => {
+        toggle_bead = [[false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false]];
+        toggle_bead_5 = [[false], [false], [false], [false], [false], [false]];
+        sum = 0;
+        bottom = 20;
+
+        draw_earth_beans();
+
+        for (let i = 0; i < 6; i++) {
+            $(`#${i}${5}`).css('top', 20).css('background-image', 'url("img/bead_inactive.png")');
+        }
+    };
+
+    // Движение земных бусинок по клику
     $('#soroban').click((event) => {
         let x = 0;
         let y = 0;
 
         x = $(`#${event.target.id}`).prop('id')[0];
         y = $(`#${event.target.id}`).prop('id')[1];
-
-        //   toggle_bead[x][y] = toggle_bead[x][y] !== true;
-        //   move_bead(x, y);
 
         if (toggle_bead[x][y] === false) {
             for (let i = y; i >= 0; i--) {
@@ -650,38 +595,17 @@
                 }
             }
         }
-
-        console.log(sum);
-        //   answer();
-
-
-
-        //  console.log(($(`#${x}${y}`)).css('background', 'black'));
     });
-
-    const move_bead = (x, y) => {
-        let temp_bottom = 0;
-        if (toggle_bead[x][y] === true) {
-            temp_bottom = parseInt($(`#${x}${y}`).css('bottom')) + 35;
-            sum += 10 ** parseInt(`${x}`);
-        }
-        if (toggle_bead[x][y] === false) {
-            temp_bottom = parseInt($(`#${x}${y}`).css('bottom')) - 35;
-            sum -= 10 ** parseInt(`${x}`);
-        }
-        $(`#${x}${y}`).css('bottom', temp_bottom);
-    };
 
     $('#soroban-5').click((event) => {
         let x = 0;
         let y = 0;
+        let temp_bottom = 0;
 
         x = $(`#${event.target.id}`).prop('id')[0];
         y = $(`#${event.target.id}`).prop('id')[1];
 
         toggle_bead_5[x][y] = toggle_bead_5[x][y] !== true;
-
-        let temp_bottom = 0;
 
         if (toggle_bead_5[x][y] === true) {
             $(`#${x}${y}`).css('background-image', 'url("img/bead_active.png")');
@@ -694,38 +618,8 @@
             temp_bottom = parseInt($(`#${x}${y}`).css('top')) - 35;
             sum -= 10 ** parseInt(`${x}`)*5;
         }
+
         $(`#${x}${y}`).css('top', temp_bottom);
-
-        console.log(sum);
-        //  answer();
-
     });
-
-    const soroban_clear = () => {
-        toggle_bead = [[false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false]];
-        toggle_bead_5 = [[false], [false], [false], [false], [false], [false]];
-        sum = 0;
-
-        let bottom = 20;
-
-        for (let i = 3; i >= 0; i--) {
-            $(`#0${i}`).css('bottom', bottom).css('background-image', 'url("img/bead_inactive.png")');
-            $(`#1${i}`).css('bottom', bottom).css('background-image', 'url("img/bead_inactive.png")');
-            $(`#2${i}`).css('bottom', bottom).css('background-image', 'url("img/bead_inactive.png")');
-            $(`#3${i}`).css('bottom', bottom).css('background-image', 'url("img/bead_inactive.png")');
-            $(`#4${i}`).css('bottom', bottom).css('background-image', 'url("img/bead_inactive.png")');
-            $(`#5${i}`).css('bottom', bottom).css('background-image', 'url("img/bead_inactive.png")');
-            bottom += 40;
-        }
-
-        for (let i = 0; i < 6; i++) {
-            $(`#${i}${5}`).css('top', 20).css('background-image', 'url("img/bead_inactive.png")');
-        }
-    }
-
-    // Мобильная версия
-
-
-
 </script>
 </html>
