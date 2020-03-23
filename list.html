@@ -308,9 +308,9 @@
             <li class="settings-item">
                 <label for="select_level">Выбрать ступень: </label>
                 <select id="select_level">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    <option value="0">1</option>
+                    <option value="1">2</option>
+                    <option value="2">3</option>
                 </select>
             </li>
 
@@ -432,6 +432,8 @@
     let right_counter = 0;
     let current_counter = 0;
     let toggle_soroban = false;
+    let page_amount = 0;
+
 
     let level_1 = [
         [
@@ -444,6 +446,11 @@
             [2, -1, 2, 1, 4], [4, -3, 2, 1, 4], [1, 3, -2, -2, 0], [2, 2, -3, 3, 4], [4, -3, 2, 1, 4], [2, -1, 3, -2, 2], [2, -2, 4, -2, 2], [3, 1, -2, -1, 1], [3, -1, -2, 4, 4], [1, 3, -1, -2, 1],
             [1, 3, -2, 1, 1, 4], [4, -4, 1, 2, 1, 4], [2, 2, -4, 2, 2, 4], [4, -1, -2, 2, 1, 4], [1, -1, 3, 1, -4, 0], [3, -2, 2, 1, -3, 1], [2, 1, -1, 2, -4, 0], [3, 1, -2, -1, 3, 4], [3, -2, 1, 2, -1, 3], [3, -1, 2, -2, -1, 1]
         ],
+        [
+            [1, 1, 1, 3], [1, -1, 2, 2], [4, -1, 1, 4], [3, -1, 2, 4], [3, -2, 3, 4], [2, 2, -1, 3], [3, -3, 2, 2], [1, 3, -1, 3], [3, -1, 2, 4], [4, -3, 1, 2],
+            [2, -1, 2, 1, 4], [4, -3, 2, 1, 4], [1, 3, -2, -2, 0], [2, 2, -3, 3, 4], [4, -3, 2, 1, 4], [2, -1, 3, -2, 2], [2, -2, 4, -2, 2], [3, 1, -2, -1, 1], [3, -1, -2, 4, 4], [1, 3, -1, -2, 1],
+            [1, 3, -2, 1, 1, 4], [4, -4, 1, 2, 1, 4], [2, 2, -4, 2, 2, 4], [4, -1, -2, 2, 1, 4], [1, -1, 3, 1, -4, 0], [3, -2, 2, 1, -3, 1], [2, 1, -1, 2, -4, 0], [3, 1, -2, -1, 3, 4], [3, -2, 1, 2, -1, 3], [3, -1, 2, -2, -1, 1]
+        ]
     ];
 
     let level_2 = [
@@ -463,17 +470,20 @@
 
     notebook_nums = [level_1, level_2];
 
+
+    page_amount = notebook_nums[$('#select_level').val()].length;
+
     // Генерирование настроек
-    for (let i = 1; i <= 40; i++) {
+    for (let i = 1; i <= page_amount; i++) {
         document.getElementById('select_page').innerHTML += `<option value="${i}">${i}</option>`
     }
 
-    let arr_nums = notebook_nums[document.getElementById('select_level').value - 1][document.getElementById('select_page').value - 1];
-    let arr_answers = [5, 10];
+    let arr_nums = notebook_nums[document.getElementById('select_level').value][document.getElementById('select_page').value - 1];
+
 
     // for (let i = 0; i < arr_nums[index].length - 1; i++) {document.getElementById('numbers').innerHTML += `<div class="number"> ${arr_nums[index][i]} </div>`}
 
-    console.log(notebook_nums[0][1]);
+   // console.log(notebook_nums[0][1]);
 
 
     // Генерирование примеров
@@ -482,8 +492,8 @@
         index = 0;
         right_counter = 0;
         current_counter = 0;
-        arr_nums = notebook_nums[document.getElementById('select_level').value - 1][document.getElementById('select_page').value - 1];
-        console.log(arr_nums);
+        arr_nums = notebook_nums[document.getElementById('select_level').value][document.getElementById('select_page').value - 1];
+      //  console.log(arr_nums);
 
         document.getElementById('completed').innerText = `${right_counter} из ${arr_nums.length}`;
     };
@@ -492,8 +502,16 @@
         index = 0;
         right_counter = 0;
         current_counter = 0;
-        arr_nums = notebook_nums[document.getElementById('select_level').value - 1][document.getElementById('select_page').value - 1];
-        console.log(arr_nums);
+        arr_nums = notebook_nums[document.getElementById('select_level').value][document.getElementById('select_page').value - 1];
+
+        page_amount = notebook_nums[$('#select_level').val()].length;
+
+        // Генерирование настроек
+        document.getElementById('select_page').innerHTML = '';
+        for (let i = 1; i <= page_amount; i++) {
+            document.getElementById('select_page').innerHTML += `<option value="${i}">${i}</option>`
+        }
+     //   console.log(arr_nums);
 
         document.getElementById('completed').innerText = `${right_counter} из ${arr_nums.length}`;
     };
