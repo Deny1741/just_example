@@ -183,7 +183,6 @@
     }
 
     #bomb {
-        margin-left: 5px;
         transition-property: all;
         transition-duration: 1s;
     }
@@ -193,6 +192,10 @@
         -moz-transform:scale(1.2); /*Mozilla scale version*/
         -o-transform:scale(1.2); /*Opera scale version*/
         transition-delay: 0s;
+    }
+
+    button {
+        border: none;
     }
 
     .button {
@@ -400,7 +403,7 @@
         <button id="answer" class="button green">Ответить</button>
         <button id="start" class="button blue" >Новый пример</button>
     </div>
-    <img id="bomb" src="img/bomb.png" height="48" alt="">
+    <button id="bomb"><img src="img/bomb.png" height="48" alt=""></button>
 
 </div>
 </body>
@@ -539,14 +542,29 @@
     });
 
     $('#bomb').click(() => {
-        console.log('BOMB');
-     //   if (arr_nums[index - 1][arr_nums[index - 1].length - 1].toString() === '*') console.log('ВЕРНО!!');
+        if (arr_nums[index - 1][arr_nums[index - 1].length - 1].toString() === '*') {
+            $('#input-answer').val('');
+            $('#numbers').css('color', 'var(--green)');
+            right_counter++;
+
+            $('#answer').prop('disabled', true);
+            $('#input-answer').prop('disabled', true);
+            $('#bomb').prop('disabled', true);
+        }
+        else {
+            $('#numbers').css('color', 'var(--red)');
+        }
+
+        $('#completed').text(`${right_counter}`);
+
+
     });
 
     start = () => {
         reset_soroban();
         $('#answer').prop('disabled', false);
         $('#input-answer').prop('disabled', false);
+        $('#bomb').prop('disabled', false);
 
         $('#input-answer').focus();
 
