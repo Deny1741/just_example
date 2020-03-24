@@ -115,7 +115,7 @@
     }
 
     .settings-item {
-        width: calc(20% - 20px);
+        width: calc(16% - 20px);
 
         text-align: center;
         margin: 5px;
@@ -180,6 +180,18 @@
 
     #bomb {
         margin-left: 5px;
+    }
+
+    img {
+        transition-property: all;
+        transition-duration: 1s;
+    }
+
+    img:hover {
+        -webkit-transform:scale(1.2); /*Webkit: Scale up image to 1.2x original size*/
+        -moz-transform:scale(1.2); /*Mozilla scale version*/
+        -o-transform:scale(1.2); /*Opera scale version*/
+        transition-delay: 0s;
     }
 
     .button {
@@ -343,6 +355,11 @@
                 <select id="select_page"></select>
             </li>
 
+            <li class="settings-item">
+                <label for="select_string">Строчка: </label>
+                <select id="select_string"></select>
+            </li>
+
             <li class="settings-item mobile-count">
                 <label for="select_page">Пример: </label>
                 <div id="current"></div>
@@ -388,6 +405,8 @@
     let current_counter = 0;
     let toggle_soroban = false;
     let page_amount = 0;
+    let string_amount = 0;
+    let arr_nums = [];
 
     let level_1 = [
         [
@@ -421,6 +440,7 @@
 
     window.onload = () => {
         page_amount = notebook_nums[$('#select_level').val()].length;
+        string_amount = notebook_nums[$('#select_level').val()][$('#select_level').val()].length/10;
 
         create_sky();
         create_earth();
@@ -453,33 +473,53 @@
         }
     };
 
-    // Обнуление настроек
+    // Создание примеров
     const reset_settings = () => {
         index = 0;
         right_counter = 0;
         current_counter = 0;
-        arr_nums = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
-        $('#completed').text(`${right_counter}`);
+
         page_amount = notebook_nums[$('#select_level').val()].length;
+        string_amount = notebook_nums[$('#select_level').val()][$('#select_level').val()].length/10;
+
+        arr_nums = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
+
+        $('#completed').text(`${right_counter}`);
     };
 
     // Генерирование настроек
     const make_settings = () => {
         $('#select_page').html('');
+      //  $('#select_string').html('');
+
         for (let i = 1; i <= page_amount; i++) {
             $('#select_page').append(`<option value="${i}">${i}</option>`);
         }
+
+        for (let i = 1; i <= string_amount; i++) {
+            $('#select_string').append(`<option value="${i}">${i}</option>`);
+        }
+
+
+
+
+
     };
 
     // Генерирование примеров
-    $('#select_page').change(() => {
+    $('#select_level').change(() => {
         reset_settings();
         make_settings();
     });
 
-    $('#select_level').change(() => {
+    $('#select_page').change(() => {
         reset_settings();
-        make_settings();
+     //   make_settings();
+    });
+
+    $('#select_string').change(() => {
+        reset_settings();
+      //  make_settings();
     });
 
     $('#bomb').click(() => {
