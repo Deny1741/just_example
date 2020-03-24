@@ -116,7 +116,7 @@
 
     .settings-item {
         width: calc(16% - 20px);
-
+        position: relative;
         text-align: center;
         margin: 5px;
         font-weight: bold;
@@ -125,6 +125,10 @@
 
     .settings label {
         display: block;
+    }
+
+    .settings label img {
+        height: 25px;
     }
 
     .settings-item input, select {
@@ -180,14 +184,11 @@
 
     #bomb {
         margin-left: 5px;
-    }
-
-    img {
         transition-property: all;
         transition-duration: 1s;
     }
 
-    img:hover {
+    #bomb:hover {
         -webkit-transform:scale(1.2); /*Webkit: Scale up image to 1.2x original size*/
         -moz-transform:scale(1.2); /*Mozilla scale version*/
         -o-transform:scale(1.2); /*Opera scale version*/
@@ -217,8 +218,12 @@
         background-color: var(--blue);
     }
 
-    .icon {
+    .green-color {
         color: var(--green);
+    }
+
+    .blue-color {
+        color: var(--blue);
     }
 
     /* Переключатель */
@@ -361,12 +366,12 @@
             </li>
 
             <li class="settings-item mobile-count">
-                <label for="select_page">Пример: </label>
+                <label for="select_page" class="blue-color">&#35;</label>
                 <div id="current"></div>
             </li>
 
             <li class="settings-item mobile-count">
-                <label for="select_page" class="icon">&#10004; </label>
+                <label for="select_page" class="green-color">&#10004;</label>
                 <div id="completed"></div>
             </li>
 
