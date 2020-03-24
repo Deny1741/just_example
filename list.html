@@ -445,7 +445,8 @@
         create_sky();
         create_earth();
 
-        make_settings();
+        make_settings_page();
+        make_settings_string();
         reset_settings();
         draw_earth_beans();
     };
@@ -479,47 +480,56 @@
         right_counter = 0;
         current_counter = 0;
 
+        let temp = [];
+        arr_nums = [];
+
         page_amount = notebook_nums[$('#select_level').val()].length;
-        string_amount = notebook_nums[$('#select_level').val()][$('#select_level').val()].length/10;
+        string_amount = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1].length/10;
 
-        arr_nums = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
+    //    arr_nums = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
+        temp = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
 
+        for (let i = $('#select_string').val()*10 - 10; i < $('#select_string').val()*10; i++) {
+            arr_nums.push(temp[i])
+        }
+
+        console.log(string_amount);
         $('#completed').text(`${right_counter}`);
     };
 
     // Генерирование настроек
-    const make_settings = () => {
+    const make_settings_page = () => {
         $('#select_page').html('');
-      //  $('#select_string').html('');
 
         for (let i = 1; i <= page_amount; i++) {
             $('#select_page').append(`<option value="${i}">${i}</option>`);
         }
 
+    };
+
+    const make_settings_string = () => {
+        $('#select_string').html('');
         for (let i = 1; i <= string_amount; i++) {
             $('#select_string').append(`<option value="${i}">${i}</option>`);
         }
-
-
-
-
 
     };
 
     // Генерирование примеров
     $('#select_level').change(() => {
         reset_settings();
-        make_settings();
+        make_settings_page();
+        make_settings_string();
     });
 
     $('#select_page').change(() => {
         reset_settings();
-     //   make_settings();
+        make_settings_string();
     });
 
     $('#select_string').change(() => {
         reset_settings();
-      //  make_settings();
+
     });
 
     $('#bomb').click(() => {
