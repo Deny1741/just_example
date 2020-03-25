@@ -356,6 +356,7 @@
                     <option value="0">1</option>
                     <option value="1">2</option>
                     <option value="2">3</option>
+                    <option value="3">4</option>
                 </select>
             </li>
 
@@ -492,17 +493,34 @@
         let temp = [];
         arr_nums = [];
 
-        page_amount = notebook_nums[$('#select_level').val()].length;
-        string_amount = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1].length/10;
+        if ($('#select_level').val() < 2) {
+            page_amount = notebook_nums[$('#select_level').val()].length;
+            string_amount = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1].length/10;
 
-    //    arr_nums = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
-        temp = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
+            temp = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
+
+        }
+        if ($('#select_level').val() == 2) {
+            temp = make_hard_level(2);
+            page_amount = 40;
+            string_amount = 4;
+            console.log(temp);
+        }
+
+        if ($('#select_level').val() == 3) {
+            temp = make_hard_level(3);
+            page_amount = 40;
+            string_amount = 4;
+            console.log(temp);
+        }
 
         for (let i = $('#select_string').val()*10 - 10; i < $('#select_string').val()*10; i++) {
             arr_nums.push(temp[i])
         }
 
-        console.log(string_amount);
+
+       // console.log(string_amount);
+
         $('#completed').text(`${right_counter}`);
     };
 
@@ -597,6 +615,57 @@
         }
 
         $('#completed').text(`${right_counter}`);
+    };
+
+
+    // Примеры 3 ступени
+    const make_hard_level = (digits) => {
+        let sum = 0; // сумма
+        let number = 0; // число
+        let noRulesNumbers = []; // массив чисел для примера
+       // let digits = 0; // количество цифр в числе
+
+        let arr = [];
+        let arr_page = [];
+        let answer = 0;
+
+        const noRulesMore = () => {
+           // digits = 2;
+
+            noRulesNumbers = [];
+
+            for (let i = -sum; i < 10**digits - 1 - sum; i++) {
+                if (i !== 0) noRulesNumbers.push(i);
+            }
+
+            noRulesNumbers = noRulesNumbers.filter(item => Math.abs(item) > 10**(digits-1));
+
+            number = noRulesNumbers[Math.ceil(Math.random()*noRulesNumbers.length - 1)];
+
+            sum += number;
+            arr.push(number);
+        };
+        // 3 4 5 6
+
+        //страница
+        for (let k = 0; k < 4; k++) {
+            // строчка
+            for (let j = 0; j < 10; j++) {
+                // пример
+                for (let i = 0; i <= k + 2; i++) {
+                    noRulesMore();
+                    answer += arr[i];
+                }
+                arr.push(answer);
+                answer = 0;
+                sum = 0;
+                arr_page.push(arr);
+                arr = [];
+            }
+        }
+
+
+        return arr_page;
     };
 
     $('#switcher').click(() => {
