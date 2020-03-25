@@ -502,12 +502,12 @@
         }
         if ($('#select_level').val() == 2) {
             temp = make_hard_level(2);
-            console.log(temp);
+           // console.log(temp);
         }
 
         if ($('#select_level').val() == 3) {
             temp = make_hard_level(3);
-            console.log(temp);
+           // console.log(temp);
         }
 
         for (let i = $('#select_string').val()*10 - 10; i < $('#select_string').val()*10; i++) {
@@ -585,7 +585,15 @@
         $('#numbers').css('color', 'black');
         $('#input-answer').val('');
 
-        if (index >= arr_nums.length) $('#numbers').text(`Правильно: ${right_counter} из ${arr_nums.length}`);
+        if (index >= arr_nums.length) {
+            $('#numbers').text(`Правильно: ${right_counter} из ${arr_nums.length}`);
+            /* Для статистики
+            let result = '';
+            result = `${parseInt($('#select_level').val()) + 1}${$('#select_page').val()}${$('#select_string').val()}`;
+            if (right_counter < 10) result += `: ${right_counter}`;
+            console.log(result);
+             */
+        }
         else $('#numbers').html('');
         for (let i = 0; i < arr_nums[index].length - 1; i++) {
             $('#numbers').append(`<div class="number"> ${arr_nums[index][i]} </div>`);
@@ -597,7 +605,6 @@
     };
 
     answer = () => {
-
         if ($('#input-answer').val() === arr_nums[index - 1][arr_nums[index - 1].length - 1].toString() || toggle_soroban === true &&  sum === arr_nums[index - 1][arr_nums[index - 1].length - 1]) {
             $('#input-answer').val('');
             $('#numbers').css('color', 'var(--green)');
@@ -653,7 +660,6 @@
             // строчка
             for (let j = 0; j < 10; j++) {
                 // пример
-
                 if (k < 4) n = k + 2;
                 else n = 2;
 
@@ -666,7 +672,6 @@
                 sum = 0;
                 arr_page.push(arr);
                 arr = [];
-
             }
         }
 
