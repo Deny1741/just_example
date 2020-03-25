@@ -502,15 +502,11 @@
         }
         if ($('#select_level').val() == 2) {
             temp = make_hard_level(2);
-            page_amount = 40;
-            string_amount = 4;
             console.log(temp);
         }
 
         if ($('#select_level').val() == 3) {
             temp = make_hard_level(3);
-            page_amount = 40;
-            string_amount = 4;
             console.log(temp);
         }
 
@@ -620,6 +616,9 @@
 
     // Примеры 3 ступени
     const make_hard_level = (digits) => {
+        page_amount = 40;
+        string_amount = 6;
+
         let sum = 0; // сумма
         let number = 0; // число
         let noRulesNumbers = []; // массив чисел для примера
@@ -628,6 +627,8 @@
         let arr = [];
         let arr_page = [];
         let answer = 0;
+
+        let n = 0;
 
         const noRulesMore = () => {
            // digits = 2;
@@ -648,11 +649,15 @@
         // 3 4 5 6
 
         //страница
-        for (let k = 0; k < 4; k++) {
+        for (let k = 0; k < 6; k++) {
             // строчка
             for (let j = 0; j < 10; j++) {
                 // пример
-                for (let i = 0; i <= k + 2; i++) {
+
+                if (k < 4) n = k + 2;
+                else n = 2;
+
+                for (let i = 0; i <= n; i++) {
                     noRulesMore();
                     answer += arr[i];
                 }
@@ -661,6 +666,7 @@
                 sum = 0;
                 arr_page.push(arr);
                 arr = [];
+
             }
         }
 
