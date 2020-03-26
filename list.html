@@ -593,6 +593,7 @@
         if (string_amount === parseInt($('#select_string').val()) || string_amount - 1 === parseInt($('#select_string').val())) {
             $('#menar').css('display', 'block');
             $('.switch-wrap').css('display', 'none');
+            if (toggle_soroban === true) $('#switcher').trigger('click');
         }
         else {
             $('#menar').css('display', 'none');
