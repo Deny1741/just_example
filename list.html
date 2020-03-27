@@ -583,13 +583,6 @@
             arr_nums.push(temp[i])
         }
 
-
-
-
-        // console.log(string_amount);
-
-
-
         $('#completed').text(`${right_counter}`);
     };
 
@@ -600,7 +593,6 @@
         for (let i = 1; i <= page_amount; i++) {
             $('#select_page').append(`<option value="${i}">${i}</option>`);
         }
-
     };
 
     const make_settings_string = () => {
@@ -612,9 +604,13 @@
 
     // Генерирование примеров
     $('#select_level').change(() => {
+        $('#select_page').val(1);
+        $('#select_string').val(1);
+
         reset_settings();
         make_settings_page();
         make_settings_string();
+
     });
 
     $('#select_page').change(() => {
@@ -668,6 +664,7 @@
         $('#numbers').css('color', 'black');
         $('#input-answer').val('');
 
+      //  console.log(arr_nums);
         if (index >= arr_nums.length) {
             $('#numbers').text(`Правильно: ${right_counter} из ${arr_nums.length}`);
             /* Для статистики
@@ -678,6 +675,7 @@
              */
         }
         else $('#numbers').html('');
+
         for (let i = 0; i < arr_nums[index].length - 1; i++) {
             $('#numbers').append(`<div class="number"> ${arr_nums[index][i]} </div>`);
         }
