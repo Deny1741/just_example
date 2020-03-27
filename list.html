@@ -368,6 +368,7 @@
                     <option value="1">2</option>
                     <option value="2">3</option>
                     <option value="3">4</option>
+                    <option value="4">5</option>
                 </select>
             </li>
 
@@ -392,7 +393,7 @@
             </li>
 
 
-             <li class="settings-item mobile-count">
+            <li class="settings-item mobile-count">
                 <img id="menar" src="img/menar.jpg" width="100" alt="">
                 <div class="switch-wrap" itemtype="switcher">
                     <label class="switch" itemtype="switcher">
@@ -515,20 +516,77 @@
         }
         if ($('#select_level').val() == 2) {
             temp = make_hard_level(2);
-           // console.log(temp);
+            // console.log(temp);
         }
 
         if ($('#select_level').val() == 3) {
             temp = make_hard_level(3);
-           // console.log(temp);
+            // console.log(temp);
         }
+
+        if ($('#select_level').val() == 4) {
+            let n_1 = 1;
+            let n_2 = 1;
+
+            if ($('#select_page').val() <= 2) {
+                n_1 = 1;
+                n_2 = 1;
+            }
+
+            else if ($('#select_page').val() <= 8) {
+                n_1 = 2;
+                n_2 = 1;
+            }
+
+            else if ($('#select_page').val() <= 14) {
+                n_1 = 3;
+                n_2 = 1;
+            }
+
+            else if ($('#select_page').val() <= 20) {
+                n_1 = 4;
+                n_2 = 1;
+            }
+
+            else if ($('#select_page').val() <= 26) {
+                n_1 = 5;
+                n_2 = 1;
+            }
+
+            else if ($('#select_page').val() <= 32) {
+                n_1 = 2;
+                n_2 = 2;
+            }
+
+            else if ($('#select_page').val() <= 38) {
+                n_1 = 3;
+                n_2 = 2;
+            }
+
+            else if ($('#select_page').val() <= 44) {
+                n_1 = 4;
+                n_2 = 2;
+            }
+
+            else if ($('#select_page').val() <= 50) {
+                n_1 = 3;
+                n_2 = 3;
+            }
+
+            temp = make_multi_level(n_1, n_2);
+            // console.log(temp);
+        }
+
+
 
         for (let i = $('#select_string').val()*10 - 10; i < $('#select_string').val()*10; i++) {
             arr_nums.push(temp[i])
         }
 
 
-       // console.log(string_amount);
+
+
+        // console.log(string_amount);
 
 
 
@@ -646,7 +704,7 @@
     };
 
 
-    // Примеры 3 ступени
+    // Примеры 3 и 4 ступени
     const make_hard_level = (digits) => {
         page_amount = 40;
         string_amount = 6;
@@ -654,7 +712,7 @@
         let sum = 0; // сумма
         let number = 0; // число
         let noRulesNumbers = []; // массив чисел для примера
-       // let digits = 0; // количество цифр в числе
+        // let digits = 0; // количество цифр в числе
 
         let arr = [];
         let arr_page = [];
@@ -663,7 +721,7 @@
         let n = 0;
 
         const noRulesMore = () => {
-           // digits = 2;
+            // digits = 2;
 
             noRulesNumbers = [];
 
@@ -681,7 +739,7 @@
         // 3 4 5 6
 
         //страница
-        for (let k = 0; k < 6; k++) {
+        for (let k = 0; k < string_amount; k++) {
             // строчка
             for (let j = 0; j < 10; j++) {
                 // пример
@@ -700,6 +758,42 @@
             }
         }
 
+
+        return arr_page;
+    };
+
+    // Умножение
+    const make_multi_level = (digits_1, digits_2) => {
+        page_amount = 50;
+        string_amount = 8;
+
+        let result = 0; // результат
+        let number_1 = 0;
+        let number_2 = 0;
+
+        let arr = [];
+        let arr_page = [];
+
+        const make_example = () => {
+            number_1 = Math.floor(Math.random()*(10**digits_1 - 10 ** (digits_1 - 1)) + 10 ** (digits_1 - 1));
+            number_2 = Math.floor(Math.random()*(10**digits_2 - 10 ** (digits_2 - 1)) + 10 ** (digits_2 - 1));
+            result = number_1 * number_2;
+
+            arr.push(number_1);
+            arr.push(number_2);
+            arr.push(result);
+        };
+
+        //страница
+        for (let k = 0; k < string_amount; k++) {
+            // строчка
+            for (let j = 0; j < 10; j++) {
+                // пример
+                make_example();
+                arr_page.push(arr);
+                arr = [];
+            }
+        }
 
         return arr_page;
     };
