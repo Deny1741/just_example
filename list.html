@@ -528,56 +528,18 @@
             let n_1 = 1;
             let n_2 = 1;
 
-            if ($('#select_page').val() <= 2) {
-                n_1 = 1;
-                n_2 = 1;
-            }
-
-            else if ($('#select_page').val() <= 8) {
-                n_1 = 2;
-                n_2 = 1;
-            }
-
-            else if ($('#select_page').val() <= 14) {
-                n_1 = 3;
-                n_2 = 1;
-            }
-
-            else if ($('#select_page').val() <= 20) {
-                n_1 = 4;
-                n_2 = 1;
-            }
-
-            else if ($('#select_page').val() <= 26) {
-                n_1 = 5;
-                n_2 = 1;
-            }
-
-            else if ($('#select_page').val() <= 32) {
-                n_1 = 2;
-                n_2 = 2;
-            }
-
-            else if ($('#select_page').val() <= 38) {
-                n_1 = 3;
-                n_2 = 2;
-            }
-
-            else if ($('#select_page').val() <= 44) {
-                n_1 = 4;
-                n_2 = 2;
-            }
-
-            else if ($('#select_page').val() <= 50) {
-                n_1 = 3;
-                n_2 = 3;
-            }
+            if ($('#select_page').val() <= 2) { n_1 = 1; n_2 = 1; }
+            else if ($('#select_page').val() <= 8) { n_1 = 2; n_2 = 1; }
+            else if ($('#select_page').val() <= 14) { n_1 = 3; n_2 = 1; }
+            else if ($('#select_page').val() <= 20) { n_1 = 4; n_2 = 1; }
+            else if ($('#select_page').val() <= 26) { n_1 = 5; n_2 = 1; }
+            else if ($('#select_page').val() <= 32) { n_1 = 2; n_2 = 2; }
+            else if ($('#select_page').val() <= 38) { n_1 = 3; n_2 = 2; }
+            else if ($('#select_page').val() <= 44) { n_1 = 4; n_2 = 2; }
+            else if ($('#select_page').val() <= 50) { n_1 = 3; n_2 = 3; }
 
             temp = make_multi_level(n_1, n_2);
-            // console.log(temp);
         }
-
-
 
         for (let i = $('#select_string').val()*10 - 10; i < $('#select_string').val()*10; i++) {
             arr_nums.push(temp[i])
@@ -756,7 +718,6 @@
             }
         }
 
-
         return arr_page;
     };
 
@@ -791,6 +752,7 @@
             return Math.floor(rand);
         };
 
+        // Сделать пример
         const make_example = () => {
             number_1 = randomInteger(get_number(1, digits_1), get_number(9, digits_1));
             number_2 = randomInteger(get_number(1, digits_2), get_number(9, digits_2));
