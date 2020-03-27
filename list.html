@@ -772,9 +772,32 @@
         let arr = [];
         let arr_page = [];
 
+        // Получить минимум и максимум числа
+        const get_number = (limit, pow) => {
+            let sum = 0;
+            let n = 0;
+
+            for (let i = 0; i < pow; i++) {
+                n = limit*10**i;
+                sum += n;
+            }
+            return sum;
+        };
+
+        // Случайное число (x, y)
+        const randomInteger = (min, max) => {
+            // случайное число от min до (max+1)
+            let rand = min + Math.random() * (max + 1 - min);
+            return Math.floor(rand);
+        };
+
         const make_example = () => {
-            number_1 = Math.floor(Math.random()*(10**digits_1 - 10 ** (digits_1 - 1)) + 10 ** (digits_1 - 1));
-            number_2 = Math.floor(Math.random()*(10**digits_2 - 10 ** (digits_2 - 1)) + 10 ** (digits_2 - 1));
+            number_1 = randomInteger(get_number(1, digits_1), get_number(9, digits_1));
+            number_2 = randomInteger(get_number(1, digits_2), get_number(9, digits_2));
+
+            if (number_1 === 1) number_1++;
+            if (number_2 === 1) number_2++;
+
             result = number_1 * number_2;
 
             arr.push(number_1);
