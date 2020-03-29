@@ -585,20 +585,21 @@
 
             temp = notebook_nums[$('#select_level').val()][$('#select_page').val() - 1];
 
-            mental_card(0);
+          //  if ($('#select_level').val() == 0 && $('#select_page').val() > 3) mental_card(0);
         }
+
         if ($('#select_level').val() == 2) {
             $('#bomb').css('display', 'none');
             temp = make_hard_level(2);
             // console.log(temp);
-            mental_card(1);
+
         }
 
         if ($('#select_level').val() == 3) {
             $('#bomb').css('display', 'none');
             temp = make_hard_level(3);
             // console.log(temp);
-            mental_card(1);
+
         }
 
         if ($('#select_level').val() == 4) {
@@ -617,7 +618,7 @@
             else if ($('#select_page').val() <= 50) { n_1 = 3; n_2 = 3; }
 
             temp = make_multi_level(n_1, n_2);
-            mental_card(1);
+
         }
 
         for (let i = $('#select_string').val()*10 - 10; i < $('#select_string').val()*10; i++) {
@@ -649,6 +650,7 @@
             $('#menar').css('display', 'block');
             $('.switch-wrap').css('display', 'none');
             if (toggle_soroban === true) $('#switcher').trigger('click');
+            console.log(toggle_soroban);
         }
         else {
             $('#menar').css('display', 'none');
@@ -668,6 +670,7 @@
     });
 
     $('#select_page').change(() => {
+        $('#select_string').val(1);
         reset_settings();
         make_settings_string();
     });
@@ -699,6 +702,17 @@
 
     start = () => {
         reset_soroban();
+
+
+        if ($('#select_level').val() < 2) {
+            if (!($('#select_level').val() == 0 && $('#select_page').val() > 3)) {
+            } else {
+                mental_card(0);
+            }
+        }
+        else mental_card(1);
+
+
 
 
 
